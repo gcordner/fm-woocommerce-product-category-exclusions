@@ -29,3 +29,6 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Delete per-site option.
+delete_option( 'fm_wcpce_excluded_product_cat_ids' );

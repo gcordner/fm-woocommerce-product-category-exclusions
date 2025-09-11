@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Fired during plugin activation
+ * Fired during plugin activation.
  *
  * @link       https://geoffcordner.net
  * @since      1.0.0
@@ -21,16 +20,15 @@
  * @author     Geoff Cordner <geoffcordner@gmail.com>
  */
 class Fm_Woocommerce_Product_Category_Exclusions_Activator {
-
 	/**
-	 * Short Description. (use period)
+	 * Activate the plugin.
 	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
+	 * @return void
 	 */
 	public static function activate() {
-
+		// If missing, create with autoload = false (DB 'off').
+		if ( get_option( FM_WCPCE_OPTION, null ) === null ) {
+			add_option( FM_WCPCE_OPTION, array(), '', false );
+		}
 	}
-
 }

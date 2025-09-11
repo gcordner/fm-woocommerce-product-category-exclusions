@@ -24,24 +24,40 @@
  * @subpackage Fm_Woocommerce_Product_Category_Exclusions/includes
  * @author     Geoff Cordner <geoffcordner@gmail.com>
  */
+/**
+ * Define the internationalization functionality
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class Fm_Woocommerce_Product_Category_Exclusions_i18n {
 
+	/**
+	 * Text domain.
+	 *
+	 * @var string
+	 */
+	private $domain;
+
+	/**
+	 * Inject the text domain.
+	 *
+	 * @param string $domain
+	 */
+	public function __construct( $domain ) {
+		$this->domain = $domain;
+	}
 
 	/**
 	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
-
 		load_plugin_textdomain(
-			'fm-woocommerce-product-category-exclusions',
+			$this->domain,
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }
