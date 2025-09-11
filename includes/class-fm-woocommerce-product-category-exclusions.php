@@ -124,17 +124,50 @@ class Fm_Woocommerce_Product_Category_Exclusions {
 	 * @access private
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new Fm_Woocommerce_Product_Category_Exclusions_Public( $this->get_plugin_name(), $this->get_version() );
-
-		// Print our filtered category list after the default product meta.
-		// (15 so it appears right after the core meta block).
-		$this->loader->add_action(
-			'woocommerce_product_meta_end',
-			$plugin_public,
-			'render_filtered_categories',
-			15
+		$plugin_public = new Fm_Woocommerce_Product_Category_Exclusions_Public(
+			$this->get_plugin_name(),
+			$this->get_version()
 		);
+
+		// 1) Filter the raw category IDs returned by Woo everywhere.
+		$this->loader->add_filter(
+			'woocommerce_product_get_category_ids',
+			$plugin_public,
+			'filter_product_category_ids',
+			10,
+			2
+		);
+
+		// 2) Filter the categories HTML built by Woo everywhere.
+		$this->loader->add_filter(
+			'woocommerce_product_get_categories',
+			$plugin_public,
+			'filter_product_categories_html',
+			10,
+			2
+		);
+
+		// 3) Critical for Astra: wc_get_product_category_list() uses Core term APIs.
+		$this->loader->add_filter(
+			'get_the_terms',
+			$plugin_public,
+			'filter_get_the_terms_product_cat',
+			10,
+			3
+		);
+
+		$this->loader->add_filter(
+			'wp_get_object_terms',
+			$plugin_public,
+			'filter_wp_get_object_terms_product_cat',
+			10,
+			4
+		);
+
+		// IMPORTANT: Do NOT add an action that echoes its own categories block.
+		// This prevents duplicate category sections across themes.
 	}
+
 
 	/**
 	 * Executes the loader to register all hooks with WordPress.
