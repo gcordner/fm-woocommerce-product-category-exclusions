@@ -15,7 +15,7 @@
  * Plugin Name:       FM WooCommerce Product Category Exclusions
  * Plugin URI:        https://github.com/gcordner/fm-woocommerce-product-category-exclusions.git
  * Description:       Outputs a filtered list of product categories.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Geoff Cordner
  * Author URI:        https://geoffcordner.net/
  * License:           GPL-2.0+
